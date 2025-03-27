@@ -32,7 +32,7 @@ describe('Component Tests', () => {
 
     test('should set success to OK upon success', function() {
       // GIVEN
-      comp.password = comp.confirmPassword = 'myPassword';
+      comp.password = process.env.TEST_DB_PASSWORD;
 
       // WHEN
       comp.changePassword();
