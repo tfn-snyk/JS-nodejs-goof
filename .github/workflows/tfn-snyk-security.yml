@@ -60,11 +60,11 @@ jobs:
         # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
         # Use || true to not fail the pipeline
       - name: Snyk Code test
-        run: snyk code test --json | snyk-to-html -o results_SCA.html || true
+        run: snyk code test --json | snyk-to-html -o results_sast.html || true
 
         # Runs Snyk Open Source (SCA) analysis and uploads result to Snyk.
       - name: Snyk Open Source
-        run: snyk test --all-projects --json | snyk-to-html -o results_SCA.html || true
+        run: snyk test --all-projects --json | snyk-to-html -o results_sca.html || true
 
         # Runs Snyk Infrastructure as Code (IaC) analysis and uploads result to Snyk.
         # Use || true to not fail the pipeline.
@@ -78,4 +78,12 @@ jobs:
       # - name: Snyk Container monitor
         # run: snyk container monitor your/image-to-test --file=Dockerfile
 
-
+      - name: Upload Snyk Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: snyk-reports
+          path: |
+            results_sast.html
+            results_sca.html
+  
+  
